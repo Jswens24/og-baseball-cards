@@ -1,27 +1,32 @@
 import playerData from "./playerData";
+import { useState } from 'react'
 
 function BaseballCard(props) {
-  // return (
-  //   <div className="card">
-  //     <h2>{props.player.name}</h2>
-  //     <img src={props.player.imgUrl} />
-  //   </div>
-  // );
+  const [showPicture, setShowPicture] = useState(true)
 
-  const statsDisplay = Object.entries(props.player.stats).map(([statName, statValue]) => (
-    <p key={statName}>
-      {statName} : {statValue}
-    </p>
-  ))
+  if (showPicture) {
+    return (
+      <div onClick={() => setShowPicture(!showPicture)} className="card">
+        <h2>{props.player.name}</h2>
+        <img src={props.player.imgUrl} />
+      </div>
+    );
+  } else {
+    const statsDisplay = Object.entries(props.player.stats).map(([statName, statValue]) => (
+      <p key={statName}>
+        {statName} : {statValue}
+      </p>
+    ))
 
-  return (
-    <div className="card">
-      <h2>{props.player.name}</h2>
-      <p>{props.player.team}</p>
-      <p>{props.player.position}</p>
-      {statsDisplay}
-    </div>
-  )
+    return (
+      <div onClick={() => setShowPicture(!showPicture)} className="card">
+        <h2>{props.player.name}</h2>
+        <p>{props.player.team}</p>
+        <p>{props.player.position}</p>
+        {statsDisplay}
+      </div>
+    )
+  }
 }
 
 function App() {
